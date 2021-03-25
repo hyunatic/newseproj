@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 
-const Pending = ({ myRequest, navigate }) => {
+const PendingApproval = ({ myRequest, navigate }) => {
   function viewItem(itemId){
     navigate(itemId)
   };
@@ -32,4 +32,4 @@ const Pending = ({ myRequest, navigate }) => {
   );
 }
 
-export default Pending;
+export default PendingApproval;

@@ -65,52 +65,12 @@ class Navbar extends Component {
                             <MDBNavItem>
                                 <MDBNavLink
                                     onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/listing'
-                                >
-                                    <strong>Listing</strong>
-                                </MDBNavLink>
-                            </MDBNavItem>
-                            <MDBNavItem>
-                                <MDBNavLink
-                                    onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/status'
-                                    >
-                                        <strong>Status</strong>
-                                    </MDBNavLink>
-                                </MDBNavItem>
-                                <MDBNavItem>
-                                    <MDBNavLink
-                                        onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/approveItems'
-                                >
-                                    <strong>ApproveItems</strong>
-                                </MDBNavLink>
-                            </MDBNavItem>
-                            <MDBNavItem>
-                                <MDBNavLink
-                                    onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/ballotItems'
-                                >
-                                    <strong>BallotItems</strong>
-                                </MDBNavLink>
-                            </MDBNavItem>
-                            <MDBNavItem>
-                                <MDBNavLink
-                                    onClick={this.closeCollapse('mainNavbarCollapse')}
                                     to='/donation'
                                 >
                                     <strong>Donation</strong>
                                 </MDBNavLink>
                             </MDBNavItem>
 
-                            <MDBNavItem>
-                                <MDBNavLink
-                                    onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/map'
-                                >
-                                    <strong>Map</strong>
-                                </MDBNavLink>
-                            </MDBNavItem>
                             <MDBNavItem>
                                 <MDBNavLink
                                     onClick={this.closeCollapse('mainNavbarCollapse')}

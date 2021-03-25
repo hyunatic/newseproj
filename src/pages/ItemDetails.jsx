@@ -7,12 +7,26 @@ import Footer from '../components/Footer'
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText } from 'mdbreact';
 import GoogleMap from '../components/GoogleMap'
+import { updateItem, addRequest } from '../Redux/Actions/itemAction'
 
 
 class ItemDetails extends Component {
     state = {
         itemid: this.props.match.params.itemId,
     };
+    ReserveItem = (item) => {
+        const form = {
+            createdAt: Date.now(),
+            itemId: item.id,
+            itemName: item.itemName,
+            recipient: localStorage.getItem("username"),
+            requestStatus: "Pending"
+        }
+        this.props.updateItem(item.id)
+        this.props.addRequest(form)
+        this.props.history.push('/status')
+    }
+
     render() {
         return (
             <div>
@@ -34,7 +48,7 @@ class ItemDetails extends Component {
                                                 {x.description} <br />
                                                 {x.location}
                                             </MDBCardText>
-                                            <MDBBtn color="pink">Place Order</MDBBtn>
+                                            <MDBBtn onClick={() => this.ReserveItem(x)} color="pink">Place Order</MDBBtn>
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>
@@ -80,4 +94,4 @@ const mapStateToProps = (state, ownProps) => {
 
 }
 
-export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'items' }, { collection: 'collectionpoint' }]))(ItemDetails)
+export default compose(connect(mapStateToProps, { updateItem, addRequest }), firestoreConnect([{ collection: 'items' }, { collection: 'collectionpoint' }]))(ItemDetails)

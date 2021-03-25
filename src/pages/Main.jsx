@@ -30,7 +30,7 @@ class Main extends Component {
         this.searchitem()
     }
     searchitem = () => {
-        var search = this.props.itemlist.filter(x => x.itemName.includes(this.state.search))
+        var search = this.props.itemlist.filter(x => x.itemName.toLowerCase().includes(this.state.search))
         this.setState({ searchResult: search, searchDisplay: false })
     }
     Navigate = (itemID) => {

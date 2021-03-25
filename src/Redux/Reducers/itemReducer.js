@@ -1,9 +1,5 @@
 const initState = {
-    items: [],
-    selectedItem: [],
-    collectionPoints: [],
-    itemList: [],
-    searchlist: []
+
 }
 
 const itemReducers = (state = initState, action) => {
@@ -14,31 +10,29 @@ const itemReducers = (state = initState, action) => {
                 ...state,
                 items: action.payload
             }
-        case 'GET_ITEM':
+        case 'UPDATE_ITEM':
             return {
                 ...state,
-                selectedItem: action.payload
             }
         case 'SEARCH_ITEM':
             return {
                 ...state,
-                searchlist: action.payload
+            }
+        case 'ITEM_REQUEST':
+            return {
+                ...state,
             }
         case 'ADD_ITEM':
             return {
                 ...state,
-                addlist: action.payload
             }
-
         case 'FETCH_POST':
             return {
                 ...state,
-                itemList: action.payload
             }
         case 'GET_COLLECTION_POINTS':
             return {
                 ...state,
-                collectionPoints: action.payload
             }
         default:
             return state;

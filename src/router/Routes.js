@@ -10,10 +10,8 @@ import Signup from '../pages/Signup'
 import Profile from '../pages/Profile'
 import itemDetails from '../pages/ItemDetails'
 import DonationSummary from '../pages/DonationSummary'
-import RequestSummary from '../pages/RequestSummary'
-import Map from '../pages/Map'
 import Logout from '../pages/Logout'
-import Status from '../pages/Status'
+import MyItemStatus from '../pages/MyItemStatus'
 
 class Routes extends React.Component {
 
@@ -30,10 +28,8 @@ class Routes extends React.Component {
         <Route exact path='/profile' component={Profile} />
         <Route path = '/itemDetails/:itemId' component = {itemDetails}/>
         <Route exact path = '/profile/donationSummary' component = {DonationSummary}/>
-        <Route exact path = '/profile/requestSummary' component = {RequestSummary}/>
-        <Route exact path = '/map' component = {Map}/>
         <Route path = '/logout' component = {Logout}/>
-        <Route exact path='/status' component={Status} />
+        <Route path='/status' component={MyItemStatus} />
         <Route
           render={function () {
             return <h1>Not Found</h1>;
