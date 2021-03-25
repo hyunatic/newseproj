@@ -16,7 +16,7 @@ const PendingApproval = ({ myRequest, navigate }) => {
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        {myRequest && myRequest.filter(x => x.requestStatus === "Pending").map(x => {
+        {myRequest && myRequest.filter(x => x.requestStatus === "Pending Approval").map(x => {
           return (
             <tr>
               <td>{x.itemName}</td>

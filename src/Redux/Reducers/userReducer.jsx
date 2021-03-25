@@ -28,6 +28,11 @@ const userReducer = (state = initState, action) => {
                 response: action.payload
             }
 
+        case 'UPDATE_PROFILE':
+            return {
+                ...state,
+            };
+
         case 'LOADING_USER':
             return {
                 ...state,

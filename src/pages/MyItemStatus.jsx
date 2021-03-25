@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import Pending from '../components/PendingStatus/Pending'
+import PendingApproval from '../components/PendingStatus/PendingApproval'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -20,8 +21,18 @@ class MyItemStatus extends Component {
                 <Navbar />
                 <br />
                 <MDBContainer>
-                    <h2>Pending Status</h2>
-                    <Pending navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                    <MDBRow>
+                        <MDBCol size="12">
+                            <h2>Pending Status</h2>
+                            <Pending navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                        </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol size="12">
+                            <h2>Item Pending for Approval</h2>
+                            <PendingApproval navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                        </MDBCol>
+                    </MDBRow>
                 </MDBContainer>
                 <br />
                 <Footer />

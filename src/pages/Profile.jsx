@@ -1,46 +1,95 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { Link } from 'react-router-dom';
-import { bindActionCreators } from 'redux'
-
-//Redux
-import { connect } from 'react-redux';
-import { getUserData } from '../Redux/Actions/userAction';
-import GoogleMap from '../components/GoogleMap';
+import { MDBCol, MDBContainer, MDBRow, MDBBtn, MDBInput } from 'mdbreact'
+import React, { Component } from 'react'
+import Footer from '../components/Footer'
+import Navbar from '../components/Navbar'
+import ProfileCard from '../components/Profile/ProfileCard'
+import UploadFile from '../components/Profile/Uploadfile'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { updateProfile } from '../Redux/Actions/userAction'
+import { firestoreConnect } from 'react-redux-firebase'
 
 class Profile extends Component {
-
-  componentDidMount(){
-    this.props.getUserData()
-    console.log(this.props.user.credentials)
+  state = {
+    bio: '',
+    name: localStorage.getItem("username"),
+    email: localStorage.getItem("email"),
+    picture: '',
+    location: '',
+  }
+  handleChange = (e) => { // to change state everytime you type -- question: value
+    this.setState({
+      [e.target.id]: e.target.value,
+    })
+  }
+  PictureUploaded = (pic) => {
+    this.setState({ picture: pic });
+  }
+  onSubmitAll = () => {
+    const form = {
+      email: this.state.email,
+      handle: this.state.name,
+      imageUrl: this.state.picture,
+      bio: this.state.bio
+    }
+    //Need userId
+    this.props.updateProfile(form, "3bmzDSlDHt7Ys2dllIuO")
   }
 
-    render() {
-      return <div>
-        <h3>logged in as: {this.props.user.credentials.handle}</h3>
-        <Link to = "/profile/donationSummary">
-        <button>view donation summary</button>
-        </Link>
-        <Link to = "/profile/requestSummary">
-        <button>view requests summary</button>
-        </Link>
+  GoBack = () => this.props.history.push('/')
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <MDBContainer>
+          <br />
+          <MDBRow>
+            <MDBCol size="5">
+              <ProfileCard profile={this.state} />
+            </MDBCol>
+            <MDBCol size="7">
+              <h3>Update Profile</h3>
+              <hr />
+              <MDBInput id='name' label="Name" value={this.state.name} icon="user" onChange={this.handleChange} >
+              </MDBInput>
+              <MDBInput id='bio' label="Biography" icon="user" value={this.state.bio} onChange={this.handleChange} >
+              </MDBInput>
+              <MDBInput id='email' label="E-mail address" icon="envelope" value={this.state.email} onChange={this.handleChange} >
+              </MDBInput>
+              <MDBInput id='location' label="Location" icon="map-marker" value={this.state.location} onChange={this.handleChange} >
+              </MDBInput>
+              <UploadFile picUpload={this.PictureUploaded} />
+
+              <MDBRow>
+                <MDBCol size="6">
+                  <MDBBtn
+                    onClick={this.onSubmitAll}
+                    color="pink"
+                    className="m-0 px-3 py-2 z-depth-0">
+                    Update Profile
+                            </MDBBtn>
+                </MDBCol>
+                <MDBCol size="6">
+                  <MDBBtn
+                    onClick={this.GoBack}
+                    color="red"
+                    className="m-0 px-3 py-2 z-depth-0">
+                    Back
+                            </MDBBtn>
+                </MDBCol>
+              </MDBRow>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+        <br />
+        <Footer />
       </div>
-    }
+    )
+  }
 }
-const mapStateToProps = (state) => ({
-    user: state.user
-  });
-  
-  Profile.propTypes = {
-    user: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
-  };
-
-  const mapDispatchToProps = dispatch => bindActionCreators(
-    { getUserData }
-, dispatch);
-
-  
-  //export default connect(mapStateToProps)(Profile);
-  export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+const mapStateToProps = state => {
+  return {
+    user: state.firestore.ordered.user,
+  }
+}
+export default compose(connect(mapStateToProps, { updateProfile }), firestoreConnect([{ collection: 'users' }]))(Profile)

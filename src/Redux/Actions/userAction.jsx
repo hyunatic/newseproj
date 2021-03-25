@@ -1,4 +1,4 @@
-
+import firebase from '../Firebase/fbConfig'
 export const loginUser = (userData) => dispatch => {
     
      fetch('https://us-central1-secondlove-cc51b.cloudfunctions.net/api/login',{
@@ -72,4 +72,12 @@ export const registerUser = (userData) => dispatch => {
                 })
             })
         });
+}
+
+export const updateProfile = (data,id) => dispatch => {
+    const db = firebase.firestore()
+    db.collection("users").doc(id).update({ ...data })
+    dispatch({
+        type: "UPDATE_PROFILE"
+    })
 }

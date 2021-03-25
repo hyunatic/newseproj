@@ -1,16 +1,16 @@
 import React from 'react';
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBContainer } from 'mdbreact';
 
-const ProfileCard = () => {
+const ProfileCard = ({profile}) => {
   return (
     <div>
       <MDBCard style={{ width: "22rem" }}>
-        {/* <MDBCardImage className="img-fluid" src={profilepic} waves /> */}
+        <MDBCardImage className="img-fluid" src={profile.picture} waves />
         <MDBCardBody>
-          <MDBCardTitle>Name</MDBCardTitle>
+          <MDBCardTitle>Name: {profile.name}</MDBCardTitle>
           <MDBCardText>
-            Email <br />
-                
+            Email: {profile.email} <br />
+            Location: {profile.location}
           </MDBCardText>
         </MDBCardBody>
       </MDBCard>
