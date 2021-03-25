@@ -73,7 +73,15 @@ class Navbar extends Component {
                             <MDBNavItem>
                                 <MDBNavLink
                                     onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/admin/approveItems'
+                                    to='/status'
+                                    >
+                                        <strong>Status</strong>
+                                    </MDBNavLink>
+                                </MDBNavItem>
+                                <MDBNavItem>
+                                    <MDBNavLink
+                                        onClick={this.closeCollapse('mainNavbarCollapse')}
+                                    to='/approveItems'
                                 >
                                     <strong>ApproveItems</strong>
                                 </MDBNavLink>
@@ -81,7 +89,7 @@ class Navbar extends Component {
                             <MDBNavItem>
                                 <MDBNavLink
                                     onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/admin/ballotItems'
+                                    to='/ballotItems'
                                 >
                                     <strong>BallotItems</strong>
                                 </MDBNavLink>

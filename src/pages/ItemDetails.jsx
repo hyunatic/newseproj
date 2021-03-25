@@ -1,69 +1,61 @@
 import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact'
-import CarouselPage from '../components/CarouselPage'
-import Card from '../components/Card'
-import CategoriesBtn from '../components/CategoriesBtn'
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-import { getItem, requestItem } from '../Redux/Actions/itemAction'
-import { bindActionCreators } from 'redux'
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
+import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText} from 'mdbreact';
+
 
 class ItemDetails extends Component {
-
-    constructor (props){
-        super(props)
-        this.handleRequestItem = this.handleRequestItem.bind(this)
-    }
-
-    componentDidMount(){
-        const { match } = this.props;
-        const matchUrl = match.url;
-        this.props.getItem(matchUrl)
-    }
-
-    handleRequestItem(){
-        console.log("button is clicked")
-        //can only request when user is login, <- enforce this in front-end
-        const { match } = this.props;
-        const matchUrl = match.url;
-        console.log("this is my match url: "+matchUrl)
-        this.props.requestItem(matchUrl)
-
-        //look at dev tools
-        //if successful, new message state
-        //if unsuccessful new error state
-    }
-    
-   
+    state = {
+        itemid: this.props.match.params.itemId,
+    };
     render() {
         return (
             <div>
-                <h1>Item Details</h1>
-                <h3>{this.props.selectedItem.itemName}</h3>
-                <h3>{this.props.selectedItem.category}</h3>
-                <h3>{this.props.selectedItem.userHandle}</h3>
-                <h3>{this.props.selectedItem.ballotTime}</h3>
-                <h3>{this.props.selectedItem.itemCondition}</h3>
-                <h3>{this.props.selectedItem.imageUrl}</h3>
-                <button onClick = {() => {this.handleRequestItem()}}>Request for item!</button>
-            
+                <Navbar />
+                <MDBContainer>
+                    <br/>
+                    <h2>Item Details</h2>
+                    <hr/>
+                    <MDBRow>
+                        {this.props.itemlist && this.props.itemlist.map(x => {
+                            return (
+                                <MDBCol>
+                                    <MDBCard style={{ width: "22rem" }}>
+                                        <MDBCardImage className="img-fluid" src={x.imageUrl} waves />
+                                        <MDBCardBody>
+                                            <MDBCardTitle>{x.itemName} {x.category}</MDBCardTitle>
+                                            <MDBCardText>
+                                                {x.description} <br/>
+                                                {x.location}
+                                    </MDBCardText>
+                                            <MDBBtn color="pink">Place Order</MDBBtn>
+                                        </MDBCardBody>
+                                    </MDBCard>
+                                </MDBCol>
+                            )
+                        })}
+                    </MDBRow>
+                </MDBContainer>
+                <Footer />
             </div>
         )
     }
 }
-
-const mapStateToProps = state => {
-    return {
-        user : state.user.user,
-        selectedItem : state.item.selectedItem,
-        ui : state.ui
+const mapStateToProps = (state, ownProps) => {
+    let id = ownProps.match.params.itemId;
+    let list = []
+    if (state.firestore.ordered.items) {
+        list = state.firestore.ordered.items
+        let singleitem = list.filter(x => x.id === id)
+        return {
+            itemlist: singleitem
+        }
     }
+
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators(
-        {getItem, requestItem}
-    , dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ItemDetails)
-//export default ItemDetails;
+export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'items' }]))(ItemDetails)

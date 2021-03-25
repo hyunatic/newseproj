@@ -9,6 +9,19 @@ export const getAvailableItems = () => dispatch => {
         }))
 
 }
+
+export const adduser = (record) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        firestore.collection("users").add({
+            ...record
+        }).then(() => {
+            dispatch({
+                type: 'USER_ADD'
+            })
+        })
+    }
+}
 export const getAllItems = () => dispatch => {
     const db = firebase.firestore()
     db.collection("items").onSnapshot(snapshot => {
@@ -22,15 +35,15 @@ export const getAllItems = () => dispatch => {
 }
 
 export const searchItem = queryString => dispatch => {
-        const db = firebase.firestore()
-        db.collection("items").where("itemName", "==", queryString).onSnapshot(snapshot => {
-            const itemData = []
-            snapshot.forEach(doc => itemData.push(({ ...doc.data() })))
-            dispatch({
-                type: "SEARCH_ITEM",
-                payload: itemData
-            })
+    const db = firebase.firestore()
+    db.collection("items").where("itemName", "==", queryString).onSnapshot(snapshot => {
+        const itemData = []
+        snapshot.forEach(doc => itemData.push(({ ...doc.data() })))
+        dispatch({
+            type: "SEARCH_ITEM",
+            payload: itemData
         })
+    })
 }
 export const updateItem = (id, data) => dispatch => {
     const db = firebase.firestore()
@@ -43,7 +56,7 @@ export const updateItem = (id, data) => dispatch => {
 
 export const addItem = (formdata) => dispatch => {
     const db = firebase.firestore()
-    db.collection("items").doc(id).set({...formdata })
+    db.collection("items").doc(id).set({ ...formdata })
     dispatch({
         type: "ADD_ITEM",
         payload: data

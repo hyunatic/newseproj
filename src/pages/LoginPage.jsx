@@ -6,26 +6,10 @@ import GuestNavbar from '../components/GuestNavBar';
 import Footer from '../components/Footer';
 
 class LoginPage extends Component {
-
-    // You don't have to this way, its long winded 
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //         customer: {
-    //             email: props.email,
-    //             password: props.password
-    //         }
-    //     }
-    //     this.handleSubmit = this.handleSubmit.bind(this)
-    //     this.handleSignInImmediate = this.handleSignInImmediate.bind(this)
-    // }
-
-    //This way works the same
     state = {
         email: '',
         password: ''
     }
-    // Use functionName = () => {} instead of function(){} so dun have to write this.function.bind(this) syntax
     handleChange = (e) => {
         this.setState({ [e.target.id]: e.target.value })
     }

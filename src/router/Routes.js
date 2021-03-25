@@ -13,7 +13,7 @@ import DonationSummary from '../pages/DonationSummary'
 import RequestSummary from '../pages/RequestSummary'
 import Map from '../pages/Map'
 import Logout from '../pages/Logout'
-import Test from '../pages/Test';
+import Status from '../pages/Status'
 
 class Routes extends React.Component {
 
@@ -23,8 +23,8 @@ class Routes extends React.Component {
         <Route exact path='/' component={Main} />
         <Route path='/login' component={Login} />
         <Route path='/listing' component={Listing} />
-        <Route exact path='/admin/approveItems' component={ApproveItems} />
-        <Route exact path='/admin/ballotItems' component={BallotItems} />
+        <Route exact path='/approveItems' component={ApproveItems} />
+        <Route exact path='/ballotItems' component={BallotItems} />
         <Route path='/donation' component={Donation} />
         <Route path='/signup' component={Signup} />
         <Route exact path='/profile' component={Profile} />
@@ -33,7 +33,7 @@ class Routes extends React.Component {
         <Route exact path = '/profile/requestSummary' component = {RequestSummary}/>
         <Route exact path = '/map' component = {Map}/>
         <Route path = '/logout' component = {Logout}/>
-        <Route path = '/test' component = {Test}/>
+        <Route exact path='/status' component={Status} />
         <Route
           render={function () {
             return <h1>Not Found</h1>;
