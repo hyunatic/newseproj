@@ -34,7 +34,7 @@ const Approve = ({ myRequest, navigate,toapprove }) => {
               <td>{x.createdAt}</td>
               <td>{x.itemStatus}</td>
               
-              <td><MDBBtn size="sm" onClick={() => toapprove(x.itemId)} color="pink">View Item</MDBBtn></td>
+              <td><MDBBtn size="sm" onClick={() => toapprove(x.itemId)} color="pink">Approve</MDBBtn></td>
             </tr>
           )
         })}

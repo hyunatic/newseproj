@@ -34,15 +34,8 @@ class MyItemStatus extends Component {
                     <MDBRow>
 
                         <MDBCol size="12">
-<<<<<<< HEAD
-                            <MDBAnimation type='slideInUp'>
-                                <h2>Item Pending for Approval</h2>
-                                <PendingApproval navigate={this.Navigate} myRequest={this.props.myrequestlist} />
-                            </MDBAnimation>
-=======
                             <h2>Item Pending for Approval</h2>
                             <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} />
->>>>>>> 7b5eefe3a8461f743bfaadd5399c7d990cf8bc7b
                         </MDBCol>
 
                     </MDBRow>
