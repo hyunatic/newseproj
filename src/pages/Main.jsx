@@ -1,5 +1,5 @@
 import React, { Component, useEffect } from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact'
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput, MDBAnimation } from 'mdbreact'
 import CarouselPage from '../components/CarouselPage'
 import Card from '../components/Main/Card'
 import CategoriesBtn from '../components/Main/CategoriesBtn'
@@ -56,7 +56,9 @@ class Main extends Component {
                 <Navbar navigate={this.validateLogin} />
                 <br />
                 <MDBContainer>
+                    <MDBAnimation type="slideInLeft" duration = '1s'>
                     <h3>Search for items</h3>
+                    <hr/>
                     <MDBInput id="search" onChange={this.handleChange} onKeyDown={this.onKeyPress} value={this.state.search} label="Search" />
                     <MDBRow>
                         {this.state.searchResult.length !== 0 && this.state.searchResult.map(x => {
@@ -93,6 +95,7 @@ class Main extends Component {
                             </MDBRow>
                         </MDBCol>
                     </MDBRow>
+                    </MDBAnimation>
                 </MDBContainer>
                 <Footer />
             </div>

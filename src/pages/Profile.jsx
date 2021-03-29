@@ -1,4 +1,4 @@
-import { MDBCol, MDBContainer, MDBRow, MDBBtn, MDBInput } from 'mdbreact'
+import { MDBCol, MDBContainer, MDBRow, MDBBtn, MDBInput, MDBAnimation } from 'mdbreact'
 import React, { Component } from 'react'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
@@ -45,9 +45,12 @@ class Profile extends Component {
           <br />
           <MDBRow>
             <MDBCol size="5">
+              <MDBAnimation type="slideInLeft">
               <ProfileCard profile={this.state} />
+              </MDBAnimation>
             </MDBCol>
             <MDBCol size="7">
+            <MDBAnimation type="slideInRight">
               <h3>Update Profile</h3>
               <hr />
               <MDBInput id='name' label="Name" value={this.state.name} icon="user" onChange={this.handleChange} >
@@ -78,6 +81,7 @@ class Profile extends Component {
                             </MDBBtn>
                 </MDBCol>
               </MDBRow>
+              </MDBAnimation>
             </MDBCol>
           </MDBRow>
         </MDBContainer>

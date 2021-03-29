@@ -1,8 +1,8 @@
-import { MDBCol, MDBContainer, MDBRow, MDBInput, MDBBtn } from 'mdbreact'
+import { MDBCol, MDBContainer, MDBRow, MDBInput, MDBBtn, MDBAnimation } from 'mdbreact'
 import React, { Component } from 'react'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
-import DonationGoogleMap from '../components/DonationGoogleMap'
+import DonationGoogleMap from '../components/Donation/DonationGoogleMap'
 import Uploadfile from '../components/Profile/Uploadfile'
 
 import { connect } from 'react-redux'
@@ -26,7 +26,7 @@ class Donation extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.collectionlist)
+    //console.log(this.props.collectionlist)
   }
 
   PictureUploaded = (pic) => {
@@ -98,6 +98,7 @@ class Donation extends Component {
           <br />
           <MDBRow>
             <MDBCol>
+              <MDBAnimation type = 'slideInLeft'>
               <div>
                 <h3>Donation</h3>
                 <hr />
@@ -129,8 +130,10 @@ class Donation extends Component {
                 <img src={this.state.file} width='500' height='500' />
 
               </div>
+              </MDBAnimation>
             </MDBCol>
             <MDBCol>
+            <MDBAnimation type = 'slideInRight'>
               <MDBRow>
                 <h3>Map Location</h3>
                 <hr />
@@ -143,7 +146,7 @@ class Donation extends Component {
                 <h6>Select Drop-off Location</h6>
                 <hr />
                 <select class="browser-default custom-select" id="location" value={this.state.location} onChange={this.handleChangeMap}>
-                  {this.props.collectionlist.map((point) => {
+                  {this.props.collectionlist && this.props.collectionlist.map((point) => {
                     return (
                       <option value={point.Name}>{point.Name}</option>
                     )
@@ -153,7 +156,7 @@ class Donation extends Component {
                 Lat: {this.state.lat} <br />
                 Long: {this.state.long}
               </MDBRow>
-
+              </MDBAnimation>
             </MDBCol>
           </MDBRow>
           <MDBBtn color="mdb-color" onClick={this.handleSubmit}>Upload </MDBBtn>

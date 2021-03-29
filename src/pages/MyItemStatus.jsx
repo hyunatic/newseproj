@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBAnimation } from "mdbreact";
 import Pending from '../components/PendingStatus/Pending'
 import PendingApproval from '../components/PendingStatus/PendingApproval'
 import Navbar from '../components/Navbar'
@@ -22,16 +22,24 @@ class MyItemStatus extends Component {
                 <br />
                 <MDBContainer>
                     <MDBRow>
+
                         <MDBCol size="12">
-                            <h2>Pending Status</h2>
-                            <Pending navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                            <MDBAnimation type='slideInDown'>
+                                <h2>Pending Status</h2>
+                                <Pending navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                            </MDBAnimation>
                         </MDBCol>
+
                     </MDBRow>
                     <MDBRow>
+
                         <MDBCol size="12">
-                            <h2>Item Pending for Approval</h2>
-                            <PendingApproval navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                            <MDBAnimation type='slideInUp'>
+                                <h2>Item Pending for Approval</h2>
+                                <PendingApproval navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                            </MDBAnimation>
                         </MDBCol>
+
                     </MDBRow>
                 </MDBContainer>
                 <br />

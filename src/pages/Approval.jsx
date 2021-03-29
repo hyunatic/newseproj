@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBAnimation } from "mdbreact";
 import Approve from '../components/ApprovalPage/Approve'
 
 import Navbar from '../components/Navbar'
@@ -8,7 +8,7 @@ import Footer from '../components/Footer'
 import {firestoreConnect} from 'react-redux-firebase'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
-import { approveItem, addRequest } from '../Redux/Actions/itemAction'
+import { /*approveItem,*/ addRequest } from '../Redux/Actions/itemAction'
 class Approval extends Component {
 //state havent put yet ( look at status page for information)
 state = {
@@ -30,7 +30,7 @@ ApprovalItem = (item) => {
         // recipient: localStorage.getItem("username"),
         // requestStatus: "Pending"
     }
-    this.props.approveItem(item.id)
+    //this.props.approveItem(item.id)
     this.props.addRequest(form)
     this.props.history.push('/approval')
 }
@@ -44,9 +44,12 @@ ApprovalItem = (item) => {
                 <MDBContainer>
                     <MDBRow>
                         <MDBCol>
+                            <MDBAnimation type= 'slideInUp'>
                             <br/>
                             <h2>Pending Approval</h2>
+                            <hr/>
                             <Approve navigate={this.Navigate} myRequest={this.props.itemlist} toapprove = {this.ApprovalItem}/>
+                            </MDBAnimation>
                         </MDBCol>
                     </MDBRow>
 
@@ -72,4 +75,4 @@ const mapStateToProps = state => {
         itemlist: state.firestore.ordered.items,
     }
 }
-export default compose(connect(mapStateToProps, { approveItem, addRequest }), firestoreConnect([{ collection: 'items' }]))(Approval)
+export default compose(connect(mapStateToProps, { /*approveItem,*/ addRequest }), firestoreConnect([{ collection: 'items' }]))(Approval)
