@@ -1,11 +1,11 @@
 import React, { Component, useEffect } from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact'
 import CarouselPage from '../components/CarouselPage'
-import Card from '../components/Card'
+import Card from '../components/Main/Card'
+import CategoriesBtn from '../components/Main/CategoriesBtn'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import PropTypes from 'prop-types'
-import { searchItem } from '../Redux/Actions/itemAction'
+
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -35,6 +35,16 @@ class Main extends Component {
     }
     Navigate = (itemID) => {
         this.props.history.push("/itemDetails/" + itemID)
+    }
+
+    FilterPosts = (id) => {
+        //console.log(id);
+        let newPosts = this.props.itemlist;
+        const result = newPosts.filter(x => x.category == id)
+        this.setState(state => ({
+            ...state,
+            FilteredPosts: result,
+        }));
     }
 
     render() {
@@ -71,9 +81,15 @@ class Main extends Component {
                     <MDBRow>
                         <MDBCol>
                             <h3> Categories </h3>
-
+                            <CategoriesBtn posts={this.FilterPosts}></CategoriesBtn>
                             <MDBRow>
-
+                                {this.state.FilteredPosts && this.state.FilteredPosts.map(x => {
+                                    return (
+                                        <MDBCol size="4">
+                                            <Card post={x} viewItem={this.Navigate} />
+                                        </MDBCol>
+                                    )
+                                })}
                             </MDBRow>
                         </MDBCol>
                     </MDBRow>
@@ -84,9 +100,7 @@ class Main extends Component {
         )
     }
 }
-Main.propTypes = {
-    getAvailableItems: PropTypes.func.isRequired
-}
+
 
 const mapStateToProps = state => {
     return {

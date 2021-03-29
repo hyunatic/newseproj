@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
-const AnyReactComponent = ({ text }) => <div><img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png" height="50" width="50" alt="" /></div>;
+const AnyReactComponent = ({ text}) => <div> <img src="https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678111-map-marker-512.png" height="50" width="50" alt="" />{text}</div>;
 
 class DonationGoogleMap extends Component {
   static defaultProps = {
@@ -11,28 +11,30 @@ class DonationGoogleMap extends Component {
     },
     zoom: 11
   };
-  mapClick = ({ x, y, lat, lng, event }) => {
-    this.props.latlong(lat,lng)
-  }
+
 
   render() {
+    console.log(this.props)
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '70vh', width: '100%' }}>
-        <GoogleMapReact onClick={this.mapClick}
+        <GoogleMapReact 
           bootstrapURLKeys={{ key: 'AIzaSyA7UYITtdux3_kJzsFhO8r5Mom0bfXgyXU' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          {/* <AnyReactComponent
-            lat="1.29"
-            lng="103.85"
-            text="KPKB"
-          /> */}
+          <AnyReactComponent
+                lat={this.props.lat}
+                lng={this.props.long}
+                text={this.props.name}
+              />
         </GoogleMapReact>
       </div>
+
+      
     );
   }
 }
 
-export default DonationGoogleMap;
+export default DonationGoogleMap
+

@@ -23,6 +23,19 @@ export const adduser = (record) => {
     }
 }
 
+export const donateItem = (record) => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        firestore.collection("items").add({
+            ...record
+        }).then(() => {
+            dispatch({
+                type: 'ITEM_ADD'
+            })
+        })
+    }
+}
+
 export const updateItem = (id) => dispatch => {
     const db = firebase.firestore()
     db.collection("items").doc(id).update({ itemStatus: 'PendingCollection' })
