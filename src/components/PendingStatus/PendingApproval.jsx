@@ -1,11 +1,11 @@
 import React from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 
-const PendingApproval = ({ myRequest, navigate }) => {
+const PendingApproval = ({ myRequest, navigate, currentUser }) => {
   function viewItem(itemId){
     navigate(itemId)
   };
-  console.log(myRequest)
+  //console.log(myRequest)
   return (
     <MDBTable>
       <MDBTableHead>
@@ -18,7 +18,7 @@ const PendingApproval = ({ myRequest, navigate }) => {
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        {myRequest && myRequest.filter(x => x.itemStatus === "pendingApproval" && x.userHandle === 'lovecode').map(x => { //need to call userhandle by account 
+        {myRequest && myRequest.filter(x => x.itemStatus === "pendingApproval" && x.userHandle === currentUser.handle).map(x => { //need to call userhandle by account 
           return (
             <tr>
               <td>{x.itemName}</td>

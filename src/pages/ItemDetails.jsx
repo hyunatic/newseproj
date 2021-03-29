@@ -79,6 +79,7 @@ class ItemDetails extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
     let id = ownProps.match.params.itemId;
+    console.log(id);
     let list = []
     if (state.firestore.ordered.items && state.firestore.ordered.collectionpoint) {
         list = state.firestore.ordered.items

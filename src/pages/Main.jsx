@@ -56,45 +56,47 @@ class Main extends Component {
                 <Navbar navigate={this.validateLogin} />
                 <br />
                 <MDBContainer>
-                    <MDBAnimation type="slideInLeft" duration = '1s'>
-                    <h3>Search for items</h3>
-                    <hr/>
-                    <MDBInput id="search" onChange={this.handleChange} onKeyDown={this.onKeyPress} value={this.state.search} label="Search" />
-                    <MDBRow>
-                        {this.state.searchResult.length !== 0 && this.state.searchResult.map(x => {
-                            return (
-                                <MDBCol size="4"><Card viewItem={this.Navigate} post={x} /></MDBCol>
-                            )
-                        })}
-                    </MDBRow>
-                    {this.state.searchDisplay &&
+                    <MDBAnimation type="slideInLeft" duration='1s'>
+                        <h3>Search for items</h3>
+                        <hr />
+                        <MDBInput id="search" onChange={this.handleChange} onKeyDown={this.onKeyPress} value={this.state.search} label="Search" />
                         <MDBRow>
-                            <MDBCol>
-                                <h3>Popular Listings</h3>
-                                <MDBRow>
-                                    {PopularListing}
-                                </MDBRow>
-                            </MDBCol>
-                        </MDBRow>
-                    }
-                    <br />
-                    <br />
+                            {this.state.searchResult.length !== 0 && this.state.searchResult.map(x => {
+                                return (
+                                    <MDBCol size="4"><Card viewItem={this.Navigate} post={x} /></MDBCol>
+                                )
+                            })}
 
-                    <MDBRow>
-                        <MDBCol>
-                            <h3> Categories </h3>
-                            <CategoriesBtn posts={this.FilterPosts}></CategoriesBtn>
                             <MDBRow>
-                                {this.state.FilteredPosts && this.state.FilteredPosts.map(x => {
-                                    return (
-                                        <MDBCol size="4">
-                                            <Card post={x} viewItem={this.Navigate} />
-                                        </MDBCol>
-                                    )
-                                })}
+                                <MDBCol>
+                                    <h3> Categories </h3>
+                                    <CategoriesBtn posts={this.FilterPosts}></CategoriesBtn>
+                                    <MDBRow>
+                                        {this.state.FilteredPosts && this.state.FilteredPosts.map(x => {
+                                            return (
+                                                <MDBCol size="4">
+                                                    <Card post={x} viewItem={this.Navigate} />
+                                                </MDBCol>
+                                            )
+                                        })}
+                                    </MDBRow>
+                                </MDBCol>
                             </MDBRow>
-                        </MDBCol>
-                    </MDBRow>
+                        </MDBRow>
+                        {this.state.searchDisplay &&
+                            <MDBRow>
+                                <MDBCol>
+                                    <h3>Popular Listings</h3>
+                                    <MDBRow>
+                                        {PopularListing}
+                                    </MDBRow>
+                                </MDBCol>
+                            </MDBRow>
+                        }
+                        <br />
+                        <br />
+
+
                     </MDBAnimation>
                 </MDBContainer>
                 <Footer />
