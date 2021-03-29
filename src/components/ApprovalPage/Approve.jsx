@@ -1,11 +1,13 @@
 import React from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 
-const Approve = ({ myRequest, navigate }) => {
+const Approve = ({ myRequest, navigate,toapprove }) => {
   function viewItem(itemId){
     navigate(itemId)
   };
+  console.log(myRequest)
   return (
+      
     <MDBTable>
       <MDBTableHead>
         <tr>
@@ -19,17 +21,20 @@ const Approve = ({ myRequest, navigate }) => {
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        {myRequest && myRequest.filter(x => x.requestStatus === "Pending Approval").map(x => {
+          
+        {myRequest && myRequest.filter(x => x.itemStatus === "pendingApproval").map(x => {
           return (
             <tr>
               <td>{x.itemName}</td>
-              <td>{x.imageUrl}</td>
+              <td>
+                   <img src ={x.imageUrl} width = "100" height = "100" />
+                  </td>
               <td>{x.description}</td>
               <td>{x.itemCondition}</td>
               <td>{x.createdAt}</td>
-              <td>{x.requestStatus}</td>
+              <td>{x.itemStatus}</td>
               
-              <td><MDBBtn size="sm" onClick={() => viewItem(x.itemId)} color="pink">View Item</MDBBtn></td>
+              <td><MDBBtn size="sm" onClick={() => toapprove(x)} color="pink">View Item</MDBBtn></td>
             </tr>
           )
         })}

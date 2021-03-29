@@ -14,6 +14,10 @@ const itemReducers = (state = initState, action) => {
             return {
                 ...state,
             }
+        case 'APPROVE_ITEM':
+            return {
+                ...state,
+            }
         case 'SEARCH_ITEM':
             return {
                 ...state,

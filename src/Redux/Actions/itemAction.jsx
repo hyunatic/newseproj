@@ -22,7 +22,13 @@ export const adduser = (record) => {
         })
     }
 }
-
+export const approveItem = (id) => dispatch => {
+    const db = firebase.firestore()
+    db.collection("items").doc(id).update({ itemStatus: 'Approved' })
+    dispatch({
+        type: "APPROVE_ITEM"
+    })
+}
 export const updateItem = (id) => dispatch => {
     const db = firebase.firestore()
     db.collection("items").doc(id).update({ itemStatus: 'PendingCollection' })
