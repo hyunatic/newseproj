@@ -8,7 +8,7 @@ import Footer from '../components/Footer'
 import {firestoreConnect} from 'react-redux-firebase'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
-import { /*approveItem,*/ addRequest } from '../Redux/Actions/itemAction'
+import { approveItem, addRequest } from '../Redux/Actions/itemAction'
 class Approval extends Component {
 //state havent put yet ( look at status page for information)
 state = {
@@ -22,17 +22,17 @@ state = {
 
 
 
-ApprovalItem = (item) => {
+ApprovalItem = (itemid) => {
     const form = {
         createdAt: Date.now(),
-        itemId: item.id,
-        itemName: item.itemName,
+        itemId: itemid,
+        //itemName: item.itemName,
         // recipient: localStorage.getItem("username"),
         // requestStatus: "Pending"
     }
-    //this.props.approveItem(item.id)
-    this.props.addRequest(form)
-    this.props.history.push('/approval')
+    this.props.approveItem(itemid);
+    //this.props.addRequest(form)
+    //this.props.history.push('/approval')
 }
     Navigate = (itemId) => {
         this.props.history.push("/itemDetails/" + itemId)
@@ -75,4 +75,4 @@ const mapStateToProps = state => {
         itemlist: state.firestore.ordered.items,
     }
 }
-export default compose(connect(mapStateToProps, { /*approveItem,*/ addRequest }), firestoreConnect([{ collection: 'items' }]))(Approval)
+export default compose(connect(mapStateToProps, { approveItem, addRequest }), firestoreConnect([{ collection: 'items' }]))(Approval)
