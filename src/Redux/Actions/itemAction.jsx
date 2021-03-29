@@ -30,7 +30,7 @@ export const donateItem = (record) => {
             ...record
         }).then(() => {
             dispatch({
-                type: 'ITEM_ADD'
+                type: 'ADD_ITEM'
             })
         })
     }
