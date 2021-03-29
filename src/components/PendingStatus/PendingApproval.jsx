@@ -5,6 +5,7 @@ const PendingApproval = ({ myRequest, navigate }) => {
   function viewItem(itemId){
     navigate(itemId)
   };
+  console.log(myRequest)
   return (
     <MDBTable>
       <MDBTableHead>
@@ -13,17 +14,20 @@ const PendingApproval = ({ myRequest, navigate }) => {
           <th>Date Requested</th>
           <th>Status</th>
           <th>View Item</th>
+          <th>Userhandler</th>
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        {myRequest && myRequest.filter(x => x.requestStatus === "Pending Approval").map(x => {
+        {myRequest && myRequest.filter(x => x.itemStatus === "pendingApproval" && x.userHandle === 'lovecode').map(x => { //need to call userhandle by account 
           return (
             <tr>
               <td>{x.itemName}</td>
               <td>{x.createdAt}</td>
-              <td>{x.requestStatus}</td>
+              <td>{x.itemStatus}</td>
               <td><MDBBtn size="sm" onClick={() => viewItem(x.itemId)} color="pink">View Item</MDBBtn></td>
+             <td>{x.userHandle}</td>
             </tr>
+
           )
         })}
 

@@ -34,10 +34,15 @@ class MyItemStatus extends Component {
                     <MDBRow>
 
                         <MDBCol size="12">
+<<<<<<< HEAD
                             <MDBAnimation type='slideInUp'>
                                 <h2>Item Pending for Approval</h2>
                                 <PendingApproval navigate={this.Navigate} myRequest={this.props.myrequestlist} />
                             </MDBAnimation>
+=======
+                            <h2>Item Pending for Approval</h2>
+                            <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} />
+>>>>>>> 7b5eefe3a8461f743bfaadd5399c7d990cf8bc7b
                         </MDBCol>
 
                     </MDBRow>
@@ -50,6 +55,7 @@ class MyItemStatus extends Component {
 }
 
 const mapStateToProps = state => {
+    
     let username = localStorage.getItem("username")
     let list = []
     if (state.firestore.ordered.requests) {
@@ -59,6 +65,9 @@ const mapStateToProps = state => {
             myrequestlist: letmyRequests
         }
     }
+    return {
+        itemlist: state.firestore.ordered.items,
+    }
 
 }
-export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'requests' }]))(MyItemStatus)
+export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'requests', collection:'items'  }]))(MyItemStatus)

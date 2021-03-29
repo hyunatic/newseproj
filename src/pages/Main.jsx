@@ -30,7 +30,7 @@ class Main extends Component {
         this.searchitem()
     }
     searchitem = () => {
-        var search = this.props.itemlist.filter(x => x.itemName.toLowerCase().includes(this.state.search))
+        var search = this.props.itemlist.filter(x => x.itemStatus !== "pendingApproval" && x.itemName.toLowerCase().includes(this.state.search))
         this.setState({ searchResult: search, searchDisplay: false })
     }
     Navigate = (itemID) => {
@@ -50,7 +50,7 @@ class Main extends Component {
     render() {
         let PopularListing;
         if (this.props.itemlist)
-            PopularListing = this.props.itemlist.map(x => <MDBCol size="4"> <Card viewItem={this.Navigate} post={x} /> </MDBCol>)
+            PopularListing = this.props.itemlist.filter(x => x.itemStatus !== "pendingApproval").map(x => <MDBCol size="4"> <Card viewItem={this.Navigate} post={x} /> </MDBCol>)
         return (
             <div>
                 <Navbar navigate={this.validateLogin} />

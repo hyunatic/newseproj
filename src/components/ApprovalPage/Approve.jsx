@@ -5,7 +5,7 @@ const Approve = ({ myRequest, navigate,toapprove }) => {
   function viewItem(itemId){
     navigate(itemId)
   };
-  console.log(myRequest)
+  // console.log(myRequest)
   return (
       
     <MDBTable>
@@ -34,7 +34,7 @@ const Approve = ({ myRequest, navigate,toapprove }) => {
               <td>{x.createdAt}</td>
               <td>{x.itemStatus}</td>
               
-              <td><MDBBtn size="sm" onClick={() => toapprove(x)} color="pink">View Item</MDBBtn></td>
+              <td><MDBBtn size="sm" onClick={() => toapprove(x.itemId)} color="pink">View Item</MDBBtn></td>
             </tr>
           )
         })}
