@@ -2,7 +2,6 @@ import React, { Component, useEffect } from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import { registerUser } from '../Redux/Actions/userAction'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import GuestNavBar from '../components/GuestNavBar'
 import Footer from '../components/Footer'
 

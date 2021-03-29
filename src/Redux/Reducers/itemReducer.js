@@ -1,4 +1,5 @@
 const initState = {
+    categories: []
 
 }
 
@@ -21,6 +22,7 @@ const itemReducers = (state = initState, action) => {
         case 'SEARCH_ITEM':
             return {
                 ...state,
+                categories: action.payload
             }
         case 'ITEM_REQUEST':
             return {
