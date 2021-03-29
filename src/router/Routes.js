@@ -11,6 +11,7 @@ import itemDetails from '../pages/ItemDetails'
 import DonationSummary from '../pages/DonationSummary'
 import Logout from '../pages/Logout'
 import MyItemStatus from '../pages/MyItemStatus'
+import Approval from '../pages/Approval'
 
 class Routes extends React.Component {
 
@@ -28,6 +29,7 @@ class Routes extends React.Component {
         <Route path = '/profile/donationSummary' component = {DonationSummary}/>
         <Route path = '/logout' component = {Logout}/>
         <Route path='/status' component={MyItemStatus} />
+        <Route path='/approval' component={Approval} />
         <Route
           render={function () {
             return <h1>Not Found</h1>;
