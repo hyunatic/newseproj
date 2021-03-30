@@ -31,7 +31,9 @@ class LoginPage extends Component {
             localStorage.setItem("username", this.state.email)
             let user = this.props.userlist.filter((user) => user.email == this.state.email)
             if (localStorage.getItem("username")) {
-                localStorage.setItem("userhandle", user[0].handle)
+                localStorage.setItem("userhandle", user[0].handle);
+                localStorage.setItem("userid", user[0].userId);
+                localStorage.setItem("image", user[0].imageUrl);
             }
             localStorage.setItem("usertype", "Normal User")
             this.props.history.push('/')

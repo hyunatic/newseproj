@@ -12,11 +12,12 @@ import { firestoreConnect } from 'react-redux-firebase'
 class Profile extends Component {
   state = {
     bio: '',
-    name: localStorage.getItem("username"),
-    email: localStorage.getItem("email"),
-    picture: '',
+    name: localStorage.getItem("userhandle"),
+    email: localStorage.getItem("username"),
+    picture: localStorage.getItem("image"),
     location: '',
   }
+
   handleChange = (e) => { // to change state everytime you type -- question: value
     this.setState({
       [e.target.id]: e.target.value,
@@ -33,7 +34,7 @@ class Profile extends Component {
       bio: this.state.bio
     }
     //Need userId
-    this.props.updateProfile(form, "3bmzDSlDHt7Ys2dllIuO")
+    this.props.updateProfile(form, localStorage.getItem("userid"))
   }
 
   GoBack = () => this.props.history.push('/')
@@ -93,7 +94,7 @@ class Profile extends Component {
 }
 const mapStateToProps = state => {
   return {
-    user: state.firestore.ordered.user,
+    user: state.firestore.ordered.users,
   }
 }
 export default compose(connect(mapStateToProps, { updateProfile }), firestoreConnect([{ collection: 'users' }]))(Profile)
