@@ -36,7 +36,7 @@ const userReducer = (state = initState, action) => {
         case 'LOADING_USER':
             return {
                 ...state,
-                loading: true
+                loading: true,
             };
         default:
             return state;

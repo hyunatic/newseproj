@@ -27,6 +27,8 @@ class ItemDetails extends Component {
         this.props.history.push('/status')
     }
 
+    GoBack = () => { this.props.history.push("/") }
+
     render() {
         return (
             <div>
@@ -69,6 +71,8 @@ class ItemDetails extends Component {
                             })}
                         </MDBCol>
                     </MDBRow>
+                    <MDBBtn color="green" onClick={this.GoBack} > Back
+                       </MDBBtn>
                 </MDBContainer>
                 <br />
                 <br />
@@ -79,6 +83,7 @@ class ItemDetails extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
     let id = ownProps.match.params.itemId;
+    console.log(id);
     let list = []
     if (state.firestore.ordered.items && state.firestore.ordered.collectionpoint) {
         list = state.firestore.ordered.items

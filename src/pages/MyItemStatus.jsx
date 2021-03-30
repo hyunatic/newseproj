@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBAnimation } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn,MDBAnimation } from "mdbreact";
 import Pending from '../components/PendingStatus/Pending'
 import PendingApproval from '../components/PendingStatus/PendingApproval'
 import Navbar from '../components/Navbar'
@@ -15,6 +15,8 @@ class MyItemStatus extends Component {
     Navigate = (itemId) => {
         this.props.history.push("/itemDetails/" + itemId)
     }
+    GoBack = () => { this.props.history.push("/") }
+
     render() {
         return (
             <div>
@@ -35,9 +37,10 @@ class MyItemStatus extends Component {
 
                         <MDBCol size="12">
                             <h2>Item Pending for Approval</h2>
-                            <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} />
+                            <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} currentUser={this.props.user} />
                         </MDBCol>
-
+                        <MDBBtn color="green" onClick={this.GoBack} > Back
+                       </MDBBtn>
                     </MDBRow>
                 </MDBContainer>
                 <br />
@@ -48,8 +51,12 @@ class MyItemStatus extends Component {
 }
 
 const mapStateToProps = state => {
-    
-    let username = localStorage.getItem("username")
+    let username = localStorage.getItem("username");
+    let users = state.firestore.ordered.users;
+    let userhandle = users.filter((user) => user.email == username)
+    console.log(userhandle);
+
+
     let list = []
     // if (state.firestore.ordered.requests) {
     //     list = state.firestore.ordered.requests
@@ -60,7 +67,8 @@ const mapStateToProps = state => {
     // }
     return {
         itemlist: state.firestore.ordered.items,
+        user: userhandle,
     }
 
 }
-export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'requests', collection:'items'  }]))(MyItemStatus)
+export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'requests', collection: 'items' }, { collection: 'users' }]))(MyItemStatus)
