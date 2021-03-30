@@ -5,6 +5,7 @@ const Pending = ({ myRequest, navigate }) => {
   function viewItem(itemId){
     navigate(itemId)
   };
+  console.log(myRequest);
   return (
     <MDBTable>
       <MDBTableHead>
@@ -16,7 +17,8 @@ const Pending = ({ myRequest, navigate }) => {
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        {myRequest && myRequest.filter(x => x.requestStatus === "Pending").map(x => {
+        
+        {myRequest && myRequest.filter(x => x.requestStatus === "Approved").map(x => {
           return (
             <tr>
               <td>{x.itemName}</td>

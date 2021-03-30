@@ -63,23 +63,15 @@ class Approval extends Component {
 }
 
 const mapStateToProps = state => {
-    // let username = localStorage.getItem("username")
-    // let list = []
-    // if (state.firestore.ordered.requests) {
-    //     list = state.firestore.ordered.requests
-    //     let letmyRequests = list.filter(x => x.recipient === username)
-    //     return {
-    //         myrequestlist: letmyRequests
-    //     }
-    // }
+
     let username = localStorage.getItem("username");
-    let item = state.firestore.ordered.items;
     let users = state.firestore.ordered.users;
     let userhandle = users.filter((user) => user.email == username)
     console.log(userhandle);
 
     return {
         itemlist: state.firestore.ordered.items,
+        user:userhandle,
     }
 }
 export default compose(connect(mapStateToProps, { approveItem, addRequest }), firestoreConnect([{ collection: 'items' }, { collection: 'users' }]))(Approval)

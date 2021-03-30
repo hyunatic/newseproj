@@ -15,14 +15,15 @@ class ItemDetails extends Component {
         itemid: this.props.match.params.itemId,
     };
     ReserveItem = (item) => {
+        var today = new Date();
         const form = {
-            createdAt: Date.now(),
+            createdAt: today.toJSON(),
             itemId: item.id,
             itemName: item.itemName,
             recipient: localStorage.getItem("username"),
             requestStatus: "Pending"
         }
-        this.props.updateItem(item.id)
+        this.props.updateItem(item.id) //update itemstatus to pendingcollection
         this.props.addRequest(form)
         this.props.history.push('/status')
     }
@@ -84,6 +85,8 @@ const mapStateToProps = (state, ownProps) => {
     if (state.firestore.ordered.items && state.firestore.ordered.collectionpoint) {
         list = state.firestore.ordered.items
         let singleitem = list.filter(x => x.id === id)
+        console.log("id: "+ id)
+        console.log(singleitem)
         var location = singleitem[0].location
         let mappoint = state.firestore.ordered.collectionpoint;
         let collectpoint = mappoint.filter(x => x.Name === location)
