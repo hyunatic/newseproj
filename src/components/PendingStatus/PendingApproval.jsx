@@ -24,7 +24,7 @@ const PendingApproval = ({ myRequest, navigate }) => {
               <td>{x.itemName}</td>
               <td>{x.createdAt}</td>
               <td>{x.itemStatus}</td>
-              <td><MDBBtn size="sm" onClick={() => viewItem(x.itemId)} color="pink">View Item</MDBBtn></td>
+              <td><MDBBtn size="sm" onClick={() => viewItem(x.Id)} color="pink">View Item</MDBBtn></td>
              <td>{x.userHandle}</td>
             </tr>
 

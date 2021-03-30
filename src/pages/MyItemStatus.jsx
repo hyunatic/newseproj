@@ -51,13 +51,13 @@ const mapStateToProps = state => {
     
     let username = localStorage.getItem("username")
     let list = []
-    if (state.firestore.ordered.requests) {
-        list = state.firestore.ordered.requests
-        let letmyRequests = list.filter(x => x.recipient === username)
-        return {
-            myrequestlist: letmyRequests
-        }
-    }
+    // if (state.firestore.ordered.requests) {
+    //     list = state.firestore.ordered.requests
+    //     let letmyRequests = list.filter(x => x.recipient === username)
+    //     return {
+    //         myrequestlist: letmyRequests
+    //     }
+    // }
     return {
         itemlist: state.firestore.ordered.items,
     }
