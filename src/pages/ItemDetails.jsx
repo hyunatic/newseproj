@@ -21,7 +21,7 @@ class ItemDetails extends Component {
             itemId: item.id,
             itemName: item.itemName,
             recipient: localStorage.getItem("username"),
-            requestStatus: "Pending"
+            requestStatus: "Pending" //pending(request) == pendingcollection(item)
         }
         this.props.updateItem(item.id) //update itemstatus to pendingcollection
         this.props.addRequest(form)
@@ -46,12 +46,13 @@ class ItemDetails extends Component {
                                     <MDBCard style={{ width: "22rem" }}>
                                         <MDBCardImage className="img-fluid" src={x.imageUrl} waves />
                                         <MDBCardBody>
-                                            <MDBCardTitle>{x.itemName} {x.category}</MDBCardTitle>
+                                            <MDBCardTitle>{x.itemName} <br/> {"Category: " + x.category}</MDBCardTitle>
                                             <MDBCardText>
                                                 {x.description} <br />
                                                 {x.location}
                                             </MDBCardText>
-                                            <MDBBtn onClick={() => this.ReserveItem(x)} color="pink">Place Order</MDBBtn>
+                                            {((x.itemStatus == "Collected" || x.itemStatus == "PendingCollection") && <MDBBtn onClick={() => this.ReserveItem(x)} outline color="pink" disabled > Ordered </MDBBtn>)  }
+                                            {((x.itemStatus !== "Collected" && x.itemStatus !== "PendingCollection") && <MDBBtn onClick={() => this.ReserveItem(x)} outline color="pink" > Place Order </MDBBtn>)  }
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>
@@ -72,7 +73,7 @@ class ItemDetails extends Component {
                             })}
                         </MDBCol>
                     </MDBRow>
-                    <MDBBtn color="green" onClick={this.GoBack} > Back
+                    <MDBBtn outline color="green" onClick={this.GoBack} >  Back
                        </MDBBtn>
                 </MDBContainer>
                 <br />
@@ -84,7 +85,6 @@ class ItemDetails extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
     let id = ownProps.match.params.itemId;
-    console.log(id);
     let list = []
     if (state.firestore.ordered.items && state.firestore.ordered.collectionpoint) {
         list = state.firestore.ordered.items

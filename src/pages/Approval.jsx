@@ -12,8 +12,6 @@ import { approveItem, addRequest } from '../Redux/Actions/itemAction'
 class Approval extends Component {
     //state havent put yet ( look at status page for information)
     state = {
-
-        // username: localStorage.getItem("username")
         username: localStorage.getItem("username"),
         usertype: localStorage.getItem("usertype"),
         itemList: [],
@@ -27,12 +25,9 @@ class Approval extends Component {
         const form = {
             createdAt: today.toJSON(),
             itemId: itemid,
-            //itemName: item.itemName,
-            // recipient: localStorage.getItem("username"),
-            // requestStatus: "Pending"
+            
         }
         this.props.approveItem(itemid);
-        //this.props.addRequest(form)
         //this.props.history.push('/approval')
     }
     Navigate = (itemId) => {
@@ -53,7 +48,7 @@ class Approval extends Component {
                                 <hr />
                                 <Approve navigate={this.Navigate} myRequest={this.props.itemlist} toapprove={this.ApprovalItem} />
                             </MDBAnimation>
-                            <MDBBtn color="green" onClick={this.GoBack} > Back
+                            <MDBBtn outline color="green" onClick={this.GoBack} > Back
                        </MDBBtn>
                         </MDBCol>
                     </MDBRow>
@@ -68,14 +63,13 @@ class Approval extends Component {
 
 const mapStateToProps = state => {
 
-    let username = localStorage.getItem("username");
-    let users = state.firestore.ordered.users;
-    let userhandle = users.filter((user) => user.email == username)
-    console.log(userhandle);
+    // let username = localStorage.getItem("username");
+    // let users = state.firestore.ordered.users;
+    // let userhandle = users.filter((user) => user.email == username)
+    // console.log(userhandle);
 
     return {
         itemlist: state.firestore.ordered.items,
-        user:userhandle,
     }
 }
-export default compose(connect(mapStateToProps, { approveItem, addRequest }), firestoreConnect([{ collection: 'items' }, { collection: 'users' }]))(Approval)
+export default compose(connect(mapStateToProps, { approveItem, addRequest }), firestoreConnect([{ collection: 'items' }]))(Approval)

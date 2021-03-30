@@ -45,9 +45,17 @@ export const approveItem = (id) => dispatch => {
 }
 export const updateItem = (id) => dispatch => {
     const db = firebase.firestore()
-    db.collection("items").doc(id).update({ itemStatus: 'PendingCollection' })
+    db.collection("items").doc(id).update({ itemStatus: 'PendingCollection', recipient: localStorage.getItem("userhandle") })
     dispatch({
         type: "UPDATE_ITEM"
+    })
+}
+
+export const collectItem = (id) => dispatch => {
+    const db = firebase.firestore()
+    db.collection("items").doc(id).update({ itemStatus: 'Collected' })
+    dispatch({
+        type: "COLLECT_ITEM"
     })
 }
 

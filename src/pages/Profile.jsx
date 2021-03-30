@@ -68,7 +68,7 @@ class Profile extends Component {
                 <MDBCol size="6">
                   <MDBBtn
                     onClick={this.onSubmitAll}
-                    color="pink"
+                    outline color="pink"
                     className="m-0 px-3 py-2 z-depth-0">
                     Update Profile
                             </MDBBtn>
@@ -76,7 +76,7 @@ class Profile extends Component {
                 <MDBCol size="6">
                   <MDBBtn
                     onClick={this.GoBack}
-                    color="green"
+                    outline color="green"
                     className="m-0 px-3 py-2 z-depth-0">
                     Back
                             </MDBBtn>

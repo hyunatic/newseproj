@@ -73,7 +73,8 @@ class Donation extends Component {
       itemStatus: "pendingApproval",
       location: this.state.location,
       requestCount: 0,
-      userHandle: localStorage.getItem("username")
+      userHandle: localStorage.getItem("username"),
+      recipient: '',
     }
     this.props.donateItem(form);
     alert("Thank you for your donation!");
@@ -160,8 +161,8 @@ class Donation extends Component {
               </MDBAnimation>
             </MDBCol>
           </MDBRow>
-          <MDBBtn color="mdb-color" onClick={this.handleSubmit}>Upload </MDBBtn>
-          <MDBBtn color="green" onClick={this.GoBack} > Back
+          <MDBBtn outline color="pink" onClick={this.handleSubmit}>Upload </MDBBtn>
+          <MDBBtn outline color="green" onClick={this.GoBack} > Back
                        </MDBBtn>
         </MDBContainer>
         <Footer />

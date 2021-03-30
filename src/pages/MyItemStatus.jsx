@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBBtn,MDBAnimation } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBAnimation } from "mdbreact";
 import Pending from '../components/PendingStatus/Pending'
 import PendingApproval from '../components/PendingStatus/PendingApproval'
 import Navbar from '../components/Navbar'
@@ -7,6 +7,9 @@ import Footer from '../components/Footer'
 import { firestoreConnect } from 'react-redux-firebase'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { collectItem } from '../Redux/Actions/itemAction'
+import Collected from '../components/PendingStatus/Collected';
+
 
 class MyItemStatus extends Component {
     state = {
@@ -16,6 +19,11 @@ class MyItemStatus extends Component {
         this.props.history.push("/itemDetails/" + itemId)
     }
     GoBack = () => { this.props.history.push("/") }
+
+    collectitem = (itemId) => {
+        console.log(itemId)
+        this.props.collectItem(itemId)
+    }
 
     render() {
         return (
@@ -27,8 +35,8 @@ class MyItemStatus extends Component {
 
                         <MDBCol size="12">
                             <MDBAnimation type='slideInDown'>
-                                <h2>Approved Requests / Items collected</h2>
-                                <Pending navigate={this.Navigate} myRequest={this.props.myrequestlist} />
+                                <h2>Items pending collection</h2>
+                                <Pending collectItem={this.collectitem} navigate={this.Navigate} myRequest={this.props.itemlist} />
                             </MDBAnimation>
                         </MDBCol>
 
@@ -36,11 +44,24 @@ class MyItemStatus extends Component {
                     <MDBRow>
 
                         <MDBCol size="12">
-                            <h2>Donation items pending for Approval</h2>
-                            <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} />
+                            <MDBAnimation type='slideInDown'>
+                                <h2> Items collected</h2>
+                                <Collected collectItem={this.collectitem} navigate={this.Navigate} myRequest={this.props.itemlist} />
+                            </MDBAnimation>
                         </MDBCol>
-                        <MDBBtn color="green" onClick={this.GoBack} > Back
+
+                    </MDBRow>
+                    <MDBRow>
+                        
+                            <MDBCol size="12">
+                            <MDBAnimation type='slideInUp'>
+                                <h2>Donation items pending for Approval</h2>
+                                <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} />
+                                </MDBAnimation>
+                            
+                            <MDBBtn outline color="green" onClick={this.GoBack} > Back
                        </MDBBtn>
+                       </MDBCol>
                     </MDBRow>
                 </MDBContainer>
                 <br />
@@ -51,18 +72,19 @@ class MyItemStatus extends Component {
 }
 
 const mapStateToProps = state => {
-    
-    let list = []
-    if (state.firestore.ordered.requests) {
-        list = state.firestore.ordered.requests
-        let letmyRequests = list.filter(x => x.recipient === username)
-        return {
-            myrequestlist: letmyRequests
-        }
-    }
+    //let list = []
+    // if (state.firestore.ordered.requests) {
+    //     list = state.firestore.ordered.requests
+    //     let letmyRequests = list.filter(x => x.recipient === username)
+    //     console.log("letmyrequest: "+ letmyRequests)
+    //     return {
+    //         myrequestlist: letmyRequests,
+
+    //     }
+    // }
     return {
         itemlist: state.firestore.ordered.items,
     }
 
 }
-export default compose(connect(mapStateToProps), firestoreConnect([{ collection: 'requests', collection:'items'  }]))(MyItemStatus)
+export default compose(connect(mapStateToProps, { collectItem }), firestoreConnect([{ collection: 'items' }]))(MyItemStatus)

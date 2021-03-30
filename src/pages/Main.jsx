@@ -30,7 +30,7 @@ class Main extends Component {
         this.searchitem()
     }
     searchitem = () => {
-        var search = this.props.itemlist.filter(x => x.itemStatus !== "pendingApproval" && x.itemName.toLowerCase().includes(this.state.search))
+        var search = this.props.itemlist.filter(x => x.itemStatus !== "pendingApproval" && x.itemStatus !== 'PendingCollection' && x.itemStatus !== 'Collected' && x.itemName.toLowerCase().includes(this.state.search))
         this.setState({ searchResult: search, searchDisplay: false })
     }
     Navigate = (itemID) => {
@@ -50,7 +50,7 @@ class Main extends Component {
     render() {
         let PopularListing;
         if (this.props.itemlist)
-            PopularListing = this.props.itemlist.filter(x => x.itemStatus !== "pendingApproval").map(x => <MDBCol size="4"> <Card viewItem={this.Navigate} post={x} /> </MDBCol>)
+            PopularListing = this.props.itemlist.filter(x => x.itemStatus !== "pendingApproval" && x.itemStatus !== 'PendingCollection' && x.itemStatus !== 'Collected').map(x => <MDBCol size="4"> <Card viewItem={this.Navigate} post={x} /> </MDBCol>)
         return (
             <div>
                 <Navbar navigate={this.validateLogin} />
@@ -70,6 +70,7 @@ class Main extends Component {
                             <MDBRow>
                                 <MDBCol>
                                     <h3> Categories </h3>
+                                    <hr/>
                                     <CategoriesBtn posts={this.FilterPosts}></CategoriesBtn>
                                     <MDBRow>
                                         {this.state.FilteredPosts && this.state.FilteredPosts.map(x => {
@@ -82,11 +83,14 @@ class Main extends Component {
                                     </MDBRow>
                                 </MDBCol>
                             </MDBRow>
+                            <br/>
+                            <br/>
                         </MDBRow>
                         {this.state.searchDisplay &&
                             <MDBRow>
                                 <MDBCol>
                                     <h3>Popular Listings</h3>
+                                    <hr/>
                                     <MDBRow>
                                         {PopularListing}
                                     </MDBRow>
