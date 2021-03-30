@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBAnimation } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBAnimation ,MDBBtn} from "mdbreact";
 import Approve from '../components/ApprovalPage/Approve'
 
 import Navbar from '../components/Navbar'
@@ -38,6 +38,8 @@ class Approval extends Component {
     Navigate = (itemId) => {
         this.props.history.push("/itemDetails/" + itemId)
     }
+
+    GoBack = () => { this.props.history.push("/") }
     render() {
         return (
             <div>
@@ -51,6 +53,8 @@ class Approval extends Component {
                                 <hr />
                                 <Approve navigate={this.Navigate} myRequest={this.props.itemlist} toapprove={this.ApprovalItem} />
                             </MDBAnimation>
+                            <MDBBtn color="green" onClick={this.GoBack} > Back
+                       </MDBBtn>
                         </MDBCol>
                     </MDBRow>
 

@@ -28,6 +28,8 @@ class ItemDetails extends Component {
         this.props.history.push('/status')
     }
 
+    GoBack = () => { this.props.history.push("/") }
+
     render() {
         return (
             <div>
@@ -70,6 +72,8 @@ class ItemDetails extends Component {
                             })}
                         </MDBCol>
                     </MDBRow>
+                    <MDBBtn color="green" onClick={this.GoBack} > Back
+                       </MDBBtn>
                 </MDBContainer>
                 <br />
                 <br />

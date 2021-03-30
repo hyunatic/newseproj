@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol, MDBAnimation } from "mdbreact";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn,MDBAnimation } from "mdbreact";
 import Pending from '../components/PendingStatus/Pending'
 import PendingApproval from '../components/PendingStatus/PendingApproval'
 import Navbar from '../components/Navbar'
@@ -15,6 +15,8 @@ class MyItemStatus extends Component {
     Navigate = (itemId) => {
         this.props.history.push("/itemDetails/" + itemId)
     }
+    GoBack = () => { this.props.history.push("/") }
+
     render() {
         return (
             <div>
@@ -37,7 +39,8 @@ class MyItemStatus extends Component {
                             <h2>Donation items pending for Approval</h2>
                             <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} />
                         </MDBCol>
-
+                        <MDBBtn color="green" onClick={this.GoBack} > Back
+                       </MDBBtn>
                     </MDBRow>
                 </MDBContainer>
                 <br />
@@ -51,13 +54,13 @@ const mapStateToProps = state => {
     
     let username = localStorage.getItem("username")
     let list = []
-    if (state.firestore.ordered.requests) {
-        list = state.firestore.ordered.requests
-        let letmyRequests = list.filter(x => x.recipient === username)
-        return {
-            myrequestlist: letmyRequests
-        }
-    }
+    // if (state.firestore.ordered.requests) {
+    //     list = state.firestore.ordered.requests
+    //     let letmyRequests = list.filter(x => x.recipient === username)
+    //     return {
+    //         myrequestlist: letmyRequests
+    //     }
+    // }
     return {
         itemlist: state.firestore.ordered.items,
     }

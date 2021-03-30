@@ -43,6 +43,7 @@ class Donation extends Component {
       [e.target.id]: e.target.value,
     })
   }
+  GoBack = () => { this.props.history.push("/") }
 
   handleChangeMap = (e) => {
     //console.log(this.state.name, this.state.description) // to change state everytime you type -- question: value
@@ -160,6 +161,8 @@ class Donation extends Component {
             </MDBCol>
           </MDBRow>
           <MDBBtn color="mdb-color" onClick={this.handleSubmit}>Upload </MDBBtn>
+          <MDBBtn color="green" onClick={this.GoBack} > Back
+                       </MDBBtn>
         </MDBContainer>
         <Footer />
       </div>
