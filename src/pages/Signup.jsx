@@ -4,7 +4,6 @@ import { registerUser } from '../Redux/Actions/userAction'
 import { connect } from 'react-redux'
 import GuestNavBar from '../components/GuestNavBar'
 import Footer from '../components/Footer'
-import 'sha256'
 import sha256 from 'sha256';
 
 class Signup extends Component {

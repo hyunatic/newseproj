@@ -17,16 +17,17 @@ class Donation extends Component {
     lat: '',
     long: '',
     categories: ["home and living", "sports", "electronic", "toys", "clothes", "luxury", "utomobile"],
-    category: '',
+    category: 'home and living',
     name: '',
     description: '',
-    location: '',
-    itemCondition: ''
+    location: 'The Salvation Army@Jurong',
+    itemCondition: 'Well Used'
 
   };
 
   componentDidMount() {
     //console.log(this.props.collectionlist)
+    console.log(this.state)
   }
 
   PictureUploaded = (pic) => {
