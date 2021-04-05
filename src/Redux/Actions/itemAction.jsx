@@ -1,15 +1,5 @@
 import firebase from '../Firebase/fbConfig'
 
-export const getAvailableItems = () => dispatch => {
-    fetch('https://us-central1-secondlove-cc51b.cloudfunctions.net/api/items')
-        .then(res => res.json())
-        .then(data => dispatch({
-            type: 'GET_ITEMS',
-            payload: data
-        }))
-
-}
-
 export const adduser = (record) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
         const firestore = getFirestore();
@@ -38,7 +28,7 @@ export const donateItem = (record) => {
 
 export const approveItem = (id) => dispatch => {
     const db = firebase.firestore()
-    db.collection("items").doc(id).update({ itemStatus: 'Approved' })
+    db.collection("items").doc(id).update({ itemStatus: 'Approved', approved: true })
     dispatch({
         type: "APPROVE_ITEM"
     })
@@ -66,12 +56,20 @@ export const addRequest = (formdata) => dispatch => {
         type: "ITEM_REQUEST"
     })
 }
+
+export const rejectItem = (id) => dispatch => {
+    const db = firebase.firestore()
+    db.collection("items").doc(id).update({ itemStatus: 'Rejected' })
+    dispatch({
+        type: "REJECTED_ITEM"
+    })
+}
+
 export const deleteItem = id => dispatch => {
     const db = firebase.firestore()
     db.collection("items").doc(id).delete()
     dispatch({
         type: "DELETE_ITEM",
-        payload: data
     })
 }
 

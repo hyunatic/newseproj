@@ -5,10 +5,11 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse,
 class Navbar extends Component {
     state = {
         collapseID: '',
-        username: localStorage.getItem("username")
+        username: localStorage.getItem("username"),
+        admin: localStorage.getItem("usertype")
     };
-    componentDidMount(){
-        if(!this.state.username)
+    componentDidMount() {
+        if (!this.state.username)
             this.props.navigate()
     }
 
@@ -27,14 +28,13 @@ class Navbar extends Component {
         const { collapseID } = this.state;
         const overlay = (
             <div
-              id='sidenav-overlay'
-              style={{ backgroundColor: 'transparent' }}
-              onClick={this.toggleCollapse('mainNavbarCollapse')}
+                id='sidenav-overlay'
+                style={{ backgroundColor: 'transparent' }}
+                onClick={this.toggleCollapse('mainNavbarCollapse')}
             />
-          );
-        
-        return (
-            <div>
+        );
+        if (this.state.admin === "false") {
+            return (
                 <MDBNavbar color='rgba-pink-strong' dark expand='md' fixed='top' scrolling>
                     <MDBNavbarBrand href='/' className='py-0 font-weight-bold'>
                         <MDBIcon fab icon="gratipay" style={{ height: '1.5rem', width: '1.5rem' }} />
@@ -73,6 +73,14 @@ class Navbar extends Component {
                             <MDBNavItem>
                                 <MDBNavLink
                                     onClick={this.closeCollapse('mainNavbarCollapse')}
+                                    to='/mydonate'
+                                >
+                                    <strong>My Donation Items</strong>
+                                </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                                <MDBNavLink
+                                    onClick={this.closeCollapse('mainNavbarCollapse')}
                                     to='/donation'
                                 >
                                     <strong>Donation</strong>
@@ -82,15 +90,6 @@ class Navbar extends Component {
                             <MDBNavItem>
                                 <MDBNavLink
                                     onClick={this.closeCollapse('mainNavbarCollapse')}
-                                    to='/approval'
-                                    >
-                                        <strong>Approval</strong>
-                                    </MDBNavLink>
-                                </MDBNavItem>
-    
-                                <MDBNavItem>
-                                    <MDBNavLink
-                                        onClick={this.closeCollapse('mainNavbarCollapse')}
                                     to='/logout'
                                 >
                                     <strong>Logout</strong>
@@ -100,8 +99,50 @@ class Navbar extends Component {
                         </MDBNavbarNav>
                     </MDBCollapse>
                 </MDBNavbar>
-            </div>
-        )
+            )
+
+        }
+        else if (this.state.admin === "true") {
+            return (
+                <MDBNavbar color='rgba-pink-strong' dark expand='md' fixed='top' scrolling>
+                    <MDBNavbarBrand href='/' className='py-0 font-weight-bold'>
+                        <MDBIcon fab icon="gratipay" style={{ height: '1.5rem', width: '1.5rem' }} />
+                        <strong className='align-middle'>SecondLove</strong>
+                    </MDBNavbarBrand>
+                    <MDBNavbarToggler
+                        onClick={this.toggleCollapse('mainNavbarCollapse')}
+                    />
+                    <MDBCollapse id='mainNavbarCollapse' isOpen={collapseID} navbar>
+                        <MDBNavbarNav right>
+                        <MDBNavItem>
+                                <MDBNavLink
+                                    onClick={this.closeCollapse('mainNavbarCollapse')}
+                                    to='/profile'
+                                >
+                                    <strong>Profile</strong>
+                                </MDBNavLink>
+                            </MDBNavItem>
+                        <MDBNavItem>
+                                <MDBNavLink
+                                    onClick={this.closeCollapse('mainNavbarCollapse')}
+                                    to='/approval'
+                                >
+                                    <strong>Approval</strong>
+                                </MDBNavLink>
+                            </MDBNavItem>
+                            <MDBNavItem>
+                                <MDBNavLink
+                                    onClick={this.closeCollapse('mainNavbarCollapse')}
+                                    to='/logout'
+                                >
+                                    <strong>Logout</strong>
+                                </MDBNavLink>
+                            </MDBNavItem>
+                        </MDBNavbarNav>
+                    </MDBCollapse>
+                </MDBNavbar>
+            )
+        }
     }
 }
 export default Navbar

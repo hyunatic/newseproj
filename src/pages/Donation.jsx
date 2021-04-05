@@ -73,11 +73,10 @@ class Donation extends Component {
       itemStatus: "pendingApproval",
       location: this.state.location,
       requestCount: 0,
-      userHandle: localStorage.getItem("username"),
+      userHandle: localStorage.getItem("name"),
       recipient: '',
     }
     this.props.donateItem(form);
-    alert("Thank you for your donation!");
     this.setState({
       file: '',
       lat: '',
@@ -88,10 +87,8 @@ class Donation extends Component {
       location: '',
       itemCondition: ''
     })
+    this.props.history.push('/mydonate')
   }
-
-
-
   render() {
     return (
       <div>
@@ -100,64 +97,64 @@ class Donation extends Component {
           <br />
           <MDBRow>
             <MDBCol>
-              <MDBAnimation type = 'slideInLeft'>
-              <div>
-                <h3>Donation</h3>
-                <hr />
-                <MDBCol col-md-1>
-                  <MDBInput id='name' label="Item name" type="text" value={this.state.name} onChange={this.handleChange} validate error="wrong" />
-                  <MDBInput id='description' type="textarea" value={this.state.description} onChange={this.handleChange} label="Enter the item description here" rows="5" />
+              <MDBAnimation type='slideInLeft'>
+                <div>
+                  <h3>Donation</h3>
+                  <hr />
+                  <MDBCol col-md-1>
+                    <MDBInput id='name' label="Item name" type="text" value={this.state.name} onChange={this.handleChange} validate error="wrong" />
+                    <MDBInput id='description' type="textarea" value={this.state.description} onChange={this.handleChange} label="Enter the item description here" rows="5" />
 
-                  <h6>Item Condition</h6>
-                  <select placeholder class="browser-default custom-select" value={this.state.location} id="itemCondition" onChange={this.handleChange}>
-                    <option value='WellUsed'>Well Used</option>
-                    <option value='SlightlyUsed'>Slightly Used</option>
-                    <option value='New'>New</option>
-                  </select>
+                    <h6>Item Condition</h6>
+                    <select placeholder class="browser-default custom-select" value={this.state.location} id="itemCondition" onChange={this.handleChange}>
+                      <option value='WellUsed'>Well Used</option>
+                      <option value='SlightlyUsed'>Slightly Used</option>
+                      <option value='New'>New</option>
+                    </select>
 
-                  <h6>Select Category</h6>
-                  <select placeholder class="browser-default custom-select" value={this.state.category} id="category" onChange={this.handleChange}>
-                    {this.state.categories.map((each) => {
-                      return (
-                        <option value={each}>{each}</option>
-                      )
-                    })}
-                  </select>
+                    <h6>Select Category</h6>
+                    <select placeholder class="browser-default custom-select" value={this.state.category} id="category" onChange={this.handleChange}>
+                      {this.state.categories.map((each) => {
+                        return (
+                          <option value={each}>{each}</option>
+                        )
+                      })}
+                    </select>
 
-                  <p></p>
+                    <p></p>
 
-                  <h6>Upload Image</h6>
-                  <Uploadfile id="image" picUpload={this.PictureUploaded} ></Uploadfile>
-                </MDBCol>
-                <img src={this.state.file} width='500' height='500' />
+                    <h6>Upload Image</h6>
+                    <Uploadfile id="image" picUpload={this.PictureUploaded} ></Uploadfile>
+                  </MDBCol>
+                  {this.state.file && <img src={this.state.file} width='500' height='500' />}
 
-              </div>
+                </div>
               </MDBAnimation>
             </MDBCol>
             <MDBCol>
-            <MDBAnimation type = 'slideInRight'>
-              <MDBRow>
-                <h3>Map Location</h3>
-                <hr />
-                <DonationGoogleMap lat={this.state.lat} long={this.state.long} name={this.state.location} />
-              </MDBRow>
+              <MDBAnimation type='slideInRight'>
+                <MDBRow>
+                  <h3>Map Location</h3>
+                  <hr />
+                  <DonationGoogleMap lat={this.state.lat} long={this.state.long} name={this.state.location} />
+                </MDBRow>
 
-              <br />
-              <br />
-              <MDBRow>
-                <h6>Select Drop-off Location</h6>
-                <hr />
-                <select class="browser-default custom-select" id="location" value={this.state.location} onChange={this.handleChangeMap}>
-                  {this.props.collectionlist && this.props.collectionlist.map((point) => {
-                    return (
-                      <option value={point.Name}>{point.Name}</option>
-                    )
-                  })}
-                </select>
+                <br />
+                <br />
+                <MDBRow>
+                  <h6>Select Drop-off Location</h6>
+                  <hr />
+                  <select class="browser-default custom-select" id="location" value={this.state.location} onChange={this.handleChangeMap}>
+                    {this.props.collectionlist && this.props.collectionlist.map((point) => {
+                      return (
+                        <option value={point.Name}>{point.Name}</option>
+                      )
+                    })}
+                  </select>
                 Name: {this.state.location}  <br />
                 Lat: {this.state.lat} <br />
                 Long: {this.state.long}
-              </MDBRow>
+                </MDBRow>
               </MDBAnimation>
             </MDBCol>
           </MDBRow>

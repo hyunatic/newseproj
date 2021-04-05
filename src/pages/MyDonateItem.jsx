@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBAnimation } from "mdbreact";
-import Pending from '../components/PendingStatus/Pending'
 import PendingApproval from '../components/PendingStatus/PendingApproval'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -8,10 +7,11 @@ import { firestoreConnect } from 'react-redux-firebase'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { collectItem } from '../Redux/Actions/itemAction'
-import Collected from '../components/PendingStatus/Collected';
+import Approved from '../components/PendingStatus/Approved';
+import Rejected from '../components/PendingStatus/Rejected';
 
 
-class MyItemStatus extends Component {
+class MyDonateItem extends Component {
     state = {
         username: localStorage.getItem("username")
     }
@@ -32,24 +32,30 @@ class MyItemStatus extends Component {
                 <br />
                 <MDBContainer>
                     <MDBRow>
-
                         <MDBCol size="12">
-                            <MDBAnimation type='slideInDown'>
-                                <h2>Items pending collection</h2>
-                                <Pending collectItem={this.collectitem} navigate={this.Navigate} myRequest={this.props.itemlist} />
+                            <MDBAnimation type='slideInUp'>
+                                <h2>Donation items pending for Approval</h2>
+                                <PendingApproval navigate={this.Navigate} myRequest={this.props.itemlist} />
                             </MDBAnimation>
                         </MDBCol>
-
                     </MDBRow>
                     <MDBRow>
-
                         <MDBCol size="12">
-                            <MDBAnimation type='slideInDown'>
-                                <h2> Items collected</h2>
-                                <Collected collectItem={this.collectitem} navigate={this.Navigate} myRequest={this.props.itemlist} />
+                            <MDBAnimation type='slideInUp'>
+                                <h2>Approved Items</h2>
+                                <Approved navigate={this.Navigate} myRequest={this.props.itemlist} />
                             </MDBAnimation>
                         </MDBCol>
-
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol size="12">
+                            <MDBAnimation type='slideInUp'>
+                                <h2>Rejected Items</h2>
+                                <Rejected navigate={this.Navigate} myRequest={this.props.itemlist} />
+                            </MDBAnimation>
+                            <MDBBtn outline color="green" onClick={this.GoBack} > Back
+                       </MDBBtn>
+                        </MDBCol>
                     </MDBRow>
                 </MDBContainer>
                 <br />
@@ -75,4 +81,4 @@ const mapStateToProps = state => {
     }
 
 }
-export default compose(connect(mapStateToProps, { collectItem }), firestoreConnect([{ collection: 'items' }]))(MyItemStatus)
+export default compose(connect(mapStateToProps, { collectItem }), firestoreConnect([{ collection: 'items' }]))(MyDonateItem)

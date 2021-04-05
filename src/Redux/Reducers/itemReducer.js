@@ -15,7 +15,10 @@ const itemReducers = (state = initState, action) => {
             return {
                 ...state,
             }
-
+        case 'REJECTED_ITEM':
+            return {
+                ...state,
+            }
         case 'COLLECT_ITEM':
             return {
                 ...state,

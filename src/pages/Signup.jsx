@@ -1,29 +1,46 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component } from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
 import { registerUser } from '../Redux/Actions/userAction'
 import { connect } from 'react-redux'
 import GuestNavBar from '../components/GuestNavBar'
 import Footer from '../components/Footer'
+import 'sha256'
+import sha256 from 'sha256';
 
 class Signup extends Component {
     state = {
-        username: '',
+        name: '',
         email: '',
         password: '',
-        cfmpassword: ''
+        cfmpassword: '',
     }
     handleChange = (e) => {
         this.setState({ [e.target.id]: e.target.value })
     }
-    handleSubmit() {
-        console.log(this.state.customer);
-        this.props.registerUser(this.state.customer)
+    Validate = () => {
+        if (this.state.name === ""){
+            alert("Username cannot be empty")
+            return
+        }
+        if (this.state.email === ""){
+            alert("Email cannot be empty")
+            return
+        }
+        if (this.state.cfmpassword !== this.state.password){
+            alert("Password doesn't match")
+            return
+        }
+        this.userRegister()
     }
-    componentWillReceiveProps(nextProps) {
-        //When post is sent and received response
-        //move to login page
-        if(nextProps.register !== 0)
-            this.props.history.push('/login')
+
+    userRegister = () => {
+        const form = {
+            handle: this.state.name,
+            email: this.state.email,
+            password: sha256(this.state.password)
+        }
+        this.props.registerUser(form)
+        this.props.history.push('/login')
     }
     render() {
         return (
@@ -32,23 +49,27 @@ class Signup extends Component {
                 <br />
                 <MDBContainer >
                     <MDBRow >
-                        <MDBCol size='12' >
+                        <MDBCol md="12">
                             <h1>Create a new account!</h1>
                         </MDBCol>
                         <MDBCol md="6">
-                            {<form>
+                            <form>
                                 <div className="grey-text">
-                                    <MDBInput label="Username" id="username" onChange={this.handleChange} icon="user-alt" group type="text" validate error="wrong"
-                                        success="right" value={this.state.username} />
+                                    <MDBInput label="Name" id="name" onChange={this.handleChange} icon="user-alt" group type="text" validate error="wrong"
+                                        success="right" value={this.state.name} />
                                     <MDBInput label="Email Address" id="email" icon="envelope" onChange={this.handleChange} group type="email" validate error="wrong"
                                         success="right" value={this.state.email} />
                                     <MDBInput label="Password" id="password" icon="lock" group onChange={this.handleChange} type="password" validate value={this.state.password} />
-                                    <MDBInput label="Confirmed Password" id="cfmpassword" icon="lock" onChange={this.handleChange} group type="password" validate value={this.state.cfmpassword} />
+                                    <MDBInput label="Confirm Password" id="cfmpassword" icon="lock" onChange={this.handleChange} group type="password" validate value={this.state.cfmpassword} />
                                 </div>
                                 <div className="text-center">
-                                    <MDBBtn onlick={this.handleSubmit(this)} color="red" size="lg" href="http://localhost:3000/login">Sign Up</MDBBtn>
+                                    <MDBBtn onClick={this.Validate} color="red" size="lg">Sign Up</MDBBtn>
                                 </div>
-                            </form>}
+                            </form>
+                        </MDBCol>
+                        <MDBCol md="6">
+                            <br /><br />
+                            <img src="http://agora.rovernet.eu/wp-content/uploads/2020/01/Registration.jpeg" className="img-fluid" alt="" />
                         </MDBCol>
                     </MDBRow>
                 </MDBContainer>

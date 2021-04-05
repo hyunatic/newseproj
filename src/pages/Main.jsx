@@ -30,7 +30,7 @@ class Main extends Component {
         this.searchitem()
     }
     searchitem = () => {
-        var search = this.props.itemlist.filter(x => x.itemStatus !== "pendingApproval" && x.itemStatus !== 'PendingCollection' && x.itemStatus !== 'Collected' && x.itemName.toLowerCase().includes(this.state.search))
+        var search = this.props.itemlist.filter(x => x.itemStatus !== "Rejected" && x.itemStatus !== "pendingApproval" && x.itemStatus !== 'PendingCollection' && x.itemStatus !== 'Collected' && x.itemName.toLowerCase().includes(this.state.search))
         this.setState({ searchResult: search, searchDisplay: false })
     }
     Navigate = (itemID) => {

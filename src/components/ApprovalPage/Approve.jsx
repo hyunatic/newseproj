@@ -1,13 +1,16 @@
 import React from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead, MDBBtn } from 'mdbreact';
 
-const Approve = ({ myRequest, navigate, toapprove }) => {
+const Approve = ({ myRequest, navigate, toapprove, toReject }) => {
   function viewItem(itemId) {
     navigate(itemId)
   };
 
   const approve = (itemid) => {
     toapprove(itemid)
+  }
+  const reject = (itemid) => {
+
   }
 
   // console.log(myRequest)
@@ -23,12 +26,13 @@ const Approve = ({ myRequest, navigate, toapprove }) => {
           <th>Date Requested</th>
           <th>Status</th>
           <th>Approval</th>
+          <th>Rejected</th>
         </tr>
       </MDBTableHead>
       <MDBTableBody>
 
         { //createdat: to format time to string
-          myRequest && myRequest.filter(x => x.itemStatus === "pendingApproval").map(x => {
+          myRequest && myRequest.filter(x => x.approved === false).map(x => {
             return (
               <tr>
                 <td>{x.itemName}</td>
@@ -39,8 +43,8 @@ const Approve = ({ myRequest, navigate, toapprove }) => {
                 <td>{x.itemCondition}</td>
                 <td>{x.createdAt}</td>
                 <td>{x.itemStatus}</td>
-
                 <td><MDBBtn size="sm" onClick={() => approve(x.id)} outline color="pink">Approve</MDBBtn></td>
+                <td><MDBBtn size="sm" onClick={() => toReject(x.id)} outline color="pink">Reject</MDBBtn></td>
               </tr>
             )
           })}

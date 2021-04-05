@@ -11,12 +11,13 @@ export default class Uploadfile extends Component {
     }
 
     onChangeHandleFile = (e) => {
-        console.log(e.target.files[0])
         var file = e.target.files[0];
-        var reader = new FileReader();
+        let file_size = e.target.files[0].size;
+        if (file_size < 1000000) {
+            var reader = new FileReader();
 
-        reader.readAsDataURL(file);
-        reader.addEventListener("load", () => {
+            reader.readAsDataURL(file);
+            reader.addEventListener("load", () => {
                 this.setState(state => ({
                     ...state,
                     form: {
@@ -28,8 +29,13 @@ export default class Uploadfile extends Component {
                 //Call Parent Component Method
                 this.props.picUpload(url)
             },
-            false
-        );
+                false
+            );
+        }
+        //1000000 is 1MB
+        else if(file_size > 1000000){
+            alert("File too big")
+        }
     };
 
 

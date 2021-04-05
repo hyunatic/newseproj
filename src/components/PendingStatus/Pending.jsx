@@ -9,7 +9,19 @@ const Pending = ({ myRequest, navigate,collectItem }) => {
   function collect(itemId){
     collectItem(itemId)
   };
-  console.log(myRequest);
+ 
+  let filteredData = myRequest.filter(x => x.itemStatus === "PendingCollection" && x.userHandle === localStorage.getItem("name"))
+  let display = filteredData.map(x => { //need to call userhandle by account 
+    return (
+      <tr>
+        <td>{x.itemName}</td>
+        <td>{x.createdAt}</td>
+        <td>{x.itemStatus}</td>
+        <td><MDBBtn size="sm" onClick={() => viewItem(x.id)} outline color="pink">View Item</MDBBtn></td>
+        <td><MDBBtn size="sm" onClick={() => collect(x.id)} outline color="pink">Collect Item</MDBBtn></td>
+      </tr>
+    )
+  })
   return (
     <MDBTable>
       <MDBTableHead>
@@ -22,19 +34,7 @@ const Pending = ({ myRequest, navigate,collectItem }) => {
         </tr>
       </MDBTableHead>
       <MDBTableBody>
-        
-        {myRequest && myRequest.filter(x => x.itemStatus === "PendingCollection" && x.recipient === localStorage.getItem("userhandle")).map(x => {
-          return (
-            <tr>
-              <td>{x.itemName}</td>
-              <td>{x.createdAt}</td>
-              <td>{x.itemStatus}</td>
-              <td><MDBBtn size="sm" onClick={() => viewItem(x.id)} outline color="pink">View Item</MDBBtn></td>
-              <td><MDBBtn size="sm" onClick={() => collect(x.id)} outline color="pink">Collect Item</MDBBtn></td>
-            </tr>
-          )
-        })}
-
+      {(filteredData.length !== 0) ? display : <React.Fragment>No Data</React.Fragment>}
       </MDBTableBody>
     </MDBTable>
   );

@@ -1,11 +1,10 @@
 import React, { Component, useEffect } from 'react'
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
-import { loginUser } from '../Redux/Actions/userAction'
+import { UserLogin } from '../Redux/Actions/userAction'
 import { connect } from 'react-redux'
 import GuestNavbar from '../components/GuestNavBar';
 import Footer from '../components/Footer';
-import { compose } from 'redux'
-import { firestoreConnect } from 'react-redux-firebase'
+import 'sha256'
 
 class LoginPage extends Component {
     state = {
@@ -17,31 +16,29 @@ class LoginPage extends Component {
     }
 
     handleSubmit = () => {
-        // email: "lovecode@email.com",
-        // password: "123456"
-        const form = {
-            email: this.state.email,
-            password: this.state.password
-        }
-        this.props.loginUser(form)
+        this.setState({ password: sha256(this.state.password) })
+        this.props.UserLogin(this.state.email)
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.logintoken.token) {
-            localStorage.setItem("token", nextProps.logintoken.token)
+        if (!nextProps.loginResponse)
+            return
+
+        if (nextProps.loginResponse.password == this.state.password) {
+            localStorage.setItem("id", nextProps.loginID)
             localStorage.setItem("username", this.state.email)
-            let user = this.props.userlist.filter((user) => user.email == this.state.email)
-            if (localStorage.getItem("username")) {
-                localStorage.setItem("userhandle", user[0].handle);
-                localStorage.setItem("userid", user[0].userId);
-                localStorage.setItem("image", user[0].imageUrl);
-            }
-            localStorage.setItem("usertype", "Normal User")
+            localStorage.setItem("name", nextProps.loginResponse.handle)
+            localStorage.setItem("usertype", nextProps.loginResponse.isAdmin)
+            localStorage.setItem("bio", nextProps.loginResponse.bio)
+            localStorage.setItem("location", nextProps.loginResponse.location)
+            localStorage.setItem("image", nextProps.loginResponse.imageUrl)
             this.props.history.push('/')
         }
-        else if (nextProps.logintoken.error) {
-            this.setState({ email: '', password: '' })
-            alert(nextProps.logintoken.error)
-        }
+
+        //Login Failed
+        this.setState({
+            email: '',
+            password: ''
+        })
     }
 
     render() {
@@ -50,7 +47,7 @@ class LoginPage extends Component {
                 <GuestNavbar />
                 <MDBContainer >
                     <br />
-                    <MDBRow>
+                    <MDBRow center>
                         <MDBCol md="12">
                             <h3 className="pink-text">Welcome to SecondLove</h3>
                             <hr />
@@ -74,10 +71,11 @@ class LoginPage extends Component {
         )
     }
 }
+
 const mapStateToProps = state => ({
-    logintoken: state.user.response,
-    userlist: state.firestore.ordered.users
+    loginResponse: state.user.loginCred,
+    loginID: state.user.userid,
 });
 
 //export default LoginPage
-export default compose(connect(mapStateToProps, { loginUser }), firestoreConnect([{ collection: 'users' }]))(LoginPage)
+export default connect(mapStateToProps, { UserLogin })(LoginPage)
