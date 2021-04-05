@@ -13,7 +13,7 @@ import { firestoreConnect } from 'react-redux-firebase'
 class Main extends Component {
     state = {
         FilteredPosts: '',
-        username: localStorage.getItem("username"),
+        username: localStorage.getItem("name"),
         usertype: localStorage.getItem("usertype"),
         itemList: [],
         search: '',

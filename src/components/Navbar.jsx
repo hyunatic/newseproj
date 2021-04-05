@@ -5,7 +5,7 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarToggler, MDBCollapse,
 class Navbar extends Component {
     state = {
         collapseID: '',
-        username: localStorage.getItem("username"),
+        username: localStorage.getItem("name"),
         admin: localStorage.getItem("usertype")
     };
     componentDidMount() {

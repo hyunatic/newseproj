@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../pages/LoginPage';
 import Listing from '../pages/Listing';
-import BallotItems from '../pages/BallotItems';
 import Donation from '../pages/Donation';
 import Main from '../pages/Main'
 import Signup from '../pages/Signup'
@@ -21,7 +20,6 @@ class Routes extends React.Component {
         <Route exact path='/' component={Main} />
         <Route path='/login' component={Login} />
         <Route path='/listing' component={Listing} />
-        <Route path='/ballotItems' component={BallotItems} />
         <Route path='/donation' component={Donation} />
         <Route path='/signup' component={Signup} />
         <Route path='/profile' component={Profile} />

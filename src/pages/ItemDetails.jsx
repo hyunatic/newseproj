@@ -20,7 +20,7 @@ class ItemDetails extends Component {
             createdAt: today.toJSON(),
             itemId: item.id,
             itemName: item.itemName,
-            recipient: localStorage.getItem("username"),
+            recipient: localStorage.getItem("name"),
             requestStatus: "Pending" //pending(request) == pendingcollection(item)
         }
         this.props.updateItem(item.id) //update itemstatus to pendingcollection

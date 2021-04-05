@@ -13,7 +13,7 @@ import Rejected from '../components/PendingStatus/Rejected';
 
 class MyDonateItem extends Component {
     state = {
-        username: localStorage.getItem("username")
+        username: localStorage.getItem("name")
     }
     Navigate = (itemId) => {
         this.props.history.push("/itemDetails/" + itemId)

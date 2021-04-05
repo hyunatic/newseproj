@@ -13,7 +13,7 @@ import Collected from '../components/PendingStatus/Collected';
 
 class MyItemStatus extends Component {
     state = {
-        username: localStorage.getItem("username")
+        username: localStorage.getItem("name")
     }
     Navigate = (itemId) => {
         this.props.history.push("/itemDetails/" + itemId)
