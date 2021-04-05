@@ -102,7 +102,7 @@ class Navbar extends Component {
             )
 
         }
-        else if (this.state.admin === "true") {
+        else {
             return (
                 <MDBNavbar color='rgba-pink-strong' dark expand='md' fixed='top' scrolling>
                     <MDBNavbarBrand href='/' className='py-0 font-weight-bold'>
